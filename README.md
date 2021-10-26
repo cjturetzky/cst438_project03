@@ -12,3 +12,8 @@ MVP includes account creation/login, posting listings for furniture, and purchas
 - Lucas Kotowski
 - Julio Lopez
 - CJ Turetzky
+
+## Notes
+The spring/ directory contains the API functionality of the application.
+Specifically, the Spring Boot server and such.
+A different directory will contain the Android application that consumes the API.
