@@ -92,6 +92,8 @@ spring/target
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,eclipse
 
 ### Eclipse ###
+.project
+.classpath
 .metadata
 bin/
 tmp/
