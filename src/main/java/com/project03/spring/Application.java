@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ public class Application {
 		int rows = template.update(sql);
 		System.out.println(rows);
 		return String.format("Help %s", rows);
+	}
+	
+	@DeleteMapping("/users")
+	public String deleteUser(@RequestParam(value = "userId") String userId) {
+
+		return "Delete user called for user ID " + userId;
 	}
 
 }
