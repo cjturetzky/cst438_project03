@@ -46,7 +46,18 @@ public class Application {
 	public String login(@RequestParam(value="user") String username, @RequestParam(value="pass") String password){
 		// Query database for username and password; If valid,
 		//TODO: Authenticate username/password and instantiate session
-		return "Login called";
+		String sql = "SELECT password FROM users WHERE username='" + username +"'";
+		String rows = "";
+		try {
+			rows = template.queryForObject(sql, String.class);
+		}
+		catch (Exception e){
+			return "Login failed: User does not exist";
+		}
+		if(password.equals(rows)){
+			return "Login successful";
+		}
+		return "Login failed: Invalid password";
 	}
 
 }
