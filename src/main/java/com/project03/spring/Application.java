@@ -47,8 +47,14 @@ public class Application {
 		// Query database for username and password; If valid,
 		//TODO: Authenticate username/password and instantiate session
 		String sql = "SELECT password FROM users WHERE username='" + username +"'";
-		String rows = template.queryForObject(sql, String.class);
-		if(!rows.isEmpty() && password.equals(rows)){
+		String rows = "";
+		try {
+			rows = template.queryForObject(sql, String.class);
+		}
+		catch (Exception e){
+
+		}
+		if(password.equals(rows)){
 			return "Login successful";
 		}
 		return "Login failed";
