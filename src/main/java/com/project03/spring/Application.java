@@ -46,7 +46,9 @@ public class Application {
 	public String login(@RequestParam(value="user") String username, @RequestParam(value="pass") String password){
 		// Query database for username and password; If valid,
 		//TODO: Authenticate username/password and instantiate session
-		return "Login called";
+		String sql = "SELECT username, password FROM users WHERE username='" + username +"'";
+		String rows = template.queryForObject(sql, String.class);
+		return rows;
 	}
 
 }
