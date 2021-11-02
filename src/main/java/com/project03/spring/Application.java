@@ -27,11 +27,11 @@ public class Application {
 	}
 
 	@GetMapping("/users")
-	public String select() throws Exception {
-		String sql = "INSERT INTO users (username, password) VALUES ('REMOVE', 'THIS')";
-		int rows = template.update(sql);
+	public String select(@RequestParam(value = "username", defaultValue = "Test") String username) {
+		String sql = "SELECT username FROM users WHERE username=" + username;
+		String rows = template.queryForObject(sql, String.class);
 		System.out.println(rows);
-		return String.format("Help %s", rows);
+		return String.format("User %s exists", rows);
 	}
 	
 	@DeleteMapping("/users")
