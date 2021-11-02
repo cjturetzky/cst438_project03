@@ -52,12 +52,12 @@ public class Application {
 			rows = template.queryForObject(sql, String.class);
 		}
 		catch (Exception e){
-
+			return "Login failed: User does not exist";
 		}
 		if(password.equals(rows)){
 			return "Login successful";
 		}
-		return "Login failed";
+		return "Login failed: Invalid password";
 	}
 
 }
