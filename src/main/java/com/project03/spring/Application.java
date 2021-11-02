@@ -28,7 +28,7 @@ public class Application {
 
 	@GetMapping("/users")
 	public String select(@RequestParam(value = "username", defaultValue = "Test") String username) {
-		String sql = "SELECT username FROM users WHERE username=" + username;
+		String sql = "SELECT username FROM users WHERE username='" + username + "'";
 		String rows = template.queryForObject(sql, String.class);
 		System.out.println(rows);
 		return String.format("User %s exists", rows);
