@@ -34,7 +34,14 @@ public class Application {
 	@DeleteMapping("/users")
 	public String deleteUser(@RequestParam(value = "userId") String userId) {
 		// TODO: Ensure request has login attatched, delete user from database
-		return "Delete user called for user ID " + userId;
+		String sql = "DELETE FROM users WHERE User_id='" + userId + "'";
+		try{
+			String rows = template.queryForObject(sql, String.class);
+		}
+		catch (Exception e){
+			return "Delete user failed";
+		}
+		return "Delete user success for user ID " + userId;
 	}
 
 	@GetMapping("/")
