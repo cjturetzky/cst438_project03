@@ -67,6 +67,7 @@ public class Application {
 		}
 		if(password.equals(rows)){
 			Cookie cookie = new Cookie("Login", "Success");
+			response.addCookie(cookie);
 			return "Login successful";
 		}
 		return "Login failed: Invalid password";
