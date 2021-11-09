@@ -56,17 +56,18 @@ public class Application {
 	public String login(@RequestParam(value="user") String username, @RequestParam(value="pass") String password, HttpServletResponse response){
 		// Query database for username and password; If valid,
 		//TODO: Authenticate username/password and instantiate session
-		String sql = "SELECT password, User_id FROM users WHERE username='" + username +"'";
-		String result = "";
+		String sql = "SELECT password FROM users WHERE username='" + username +"'";
+		String rows = "";
 		try {
-			result = template.queryForObject(sql, String.class);
+			rows = template.queryForObject(sql, String.class);
 		}
 		catch (Exception e){
 			return "Login failed: User does not exist";
 		}
-		String[] rows = result.split(",");
-		if(password.equals(rows[0])){
-			Cookie cookie = new Cookie("User_id", rows[1]);
+		if(password.equals(rows)){
+			sql = "SELECT User_id FROM users WHERE username='" + username + "'";
+			rows = template.queryForObject(sql, String.class);
+			Cookie cookie = new Cookie("User_id", rows);
 			response.addCookie(cookie);
 			return "Login successful";
 		}
