@@ -2,6 +2,7 @@
 package com.project03.spring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,10 +26,30 @@ public class Application {
 
 	@GetMapping("/users")
 	public String select(@RequestParam(value = "username", defaultValue = "Test") String username) {
-		String sql = "SELECT username FROM users WHERE username='" + username + "'";
-		String rows = template.queryForObject(sql, String.class);
+		String sql = "SELECT username FROM users WHERE username = ?";
+		String rows = template.queryForObject(sql, String.class, new Object[] { username });
 		System.out.println(rows);
 		return String.format("User %s exists", rows);
+	}
+
+	@PostMapping("/users")
+	public String register(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
+		String sql = "SELECT username FROM users WHERE username ='" + username + "'";
+		String rows;
+		try {
+			rows = template.queryForObject(sql, String.class);
+		}
+		catch (EmptyResultDataAccessException e) {
+			rows = "";
+		}
+
+
+		if (rows.length() == 0) {
+			sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+			template.update(sql, username, password);
+			return "User " + username + " created successfully!";
+		}
+		return "User " + username + " already exists!";
 	}
 	
 	@DeleteMapping("/users")
