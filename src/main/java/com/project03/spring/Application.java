@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
@@ -35,16 +36,18 @@ public class Application {
 	}
 	
 	@DeleteMapping("/users")
-	public String deleteUser(@RequestParam(value = "userId") String userId) {
+	public String deleteUser(@CookieValue("User_id") String cookie_id, @RequestParam(value = "userId") String userId) {
 		// TODO: Ensure request has login attatched, delete user from database
 		String sql = "DELETE FROM users WHERE User_id='" + userId + "'";
-		try{
-			String rows = template.queryForObject(sql, String.class);
+		if(cookie_id.equals(userId)) {
+			try {
+				String rows = template.queryForObject(sql, String.class);
+			} catch (Exception e) {
+				return "Delete user failed";
+			}
+			return "Delete user success for user ID " + userId;
 		}
-		catch (Exception e){
-			return "Delete user failed";
-		}
-		return "Delete user success for user ID " + userId;
+		return "Cannot delete user if not logged in";
 	}
 
 	@GetMapping("/")
