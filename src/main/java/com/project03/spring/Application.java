@@ -28,6 +28,18 @@ public class Application {
 		return String.format("Hello %s!", name);
 	}
 
+	@GetMapping("/items")
+	public String listings(@RequestParam(value="search", defaultValue="all") String search){
+		String sql;
+		if(search.equals("all")){
+
+		}
+		else{
+
+		}
+		return "Placeholder";
+	}
+
 	@GetMapping("/users")
 	public String select(@RequestParam(value = "username", defaultValue = "Test") String username) {
 		String sql = "SELECT username FROM users WHERE username = ?";
@@ -60,7 +72,8 @@ public class Application {
 	public String deleteUser(@CookieValue("User_id") String cookie_id, @RequestParam(value = "userId") String userId) {
 		// TODO: Ensure request has login attatched, delete user from database
 		String sql = "DELETE FROM users WHERE User_id='" + userId + "'";
-		if(cookie_id.equals(userId)) {
+
+		if(cookie_id.equals(userId) || checkAdmin(Integer.parseInt(userId))) {
 			try {
 				String rows = template.queryForObject(sql, String.class);
 			} catch (Exception e) {
@@ -106,6 +119,12 @@ public class Application {
 			return "Logout successful";
 		}
 		return "Error logging out: User not logged in";
+	}
+
+	public boolean checkAdmin(int userId){
+		String sql = "SELECT is_admin FROM useres WHERE user_id='" + userId + "'";
+		boolean rows = template.queryForObject(sql, Boolean.class);
+		return rows;
 	}
 
 }
