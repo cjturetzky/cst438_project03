@@ -2,6 +2,7 @@
 package com.project03.spring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,7 +15,7 @@ import javax.sql.DataSource;
 
 @SpringBootApplication
 @RestController
-public class Application {
+public class Application extends SpringBootServletInitializer{
 
 	@Autowired
 	private JdbcTemplate template;
