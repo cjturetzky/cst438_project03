@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FinalFurnishings</string>
     <string name="registerButtonText">Register</string>
+    <string name="loginButtonText">Login</string>
     <string name="usernameHintText">Enter your username</string>
     <string name="passwordHintText">Enter your password</string>
 </resources>
