@@ -1,4 +1,4 @@
-package com.example.cst438_project3;
+package com.example.finalfurnishings;
 
 import android.os.Bundle;
 import android.widget.Button;
