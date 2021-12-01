@@ -2,6 +2,7 @@ package com.example.finalfurnishings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,29 +39,29 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = usernameText.getText().toString();
                 String password = passwordText.getText().toString();
-                if (login(username, password)) {
-                    // go to activity
-                }
-                else {
-                    // toast
-                }
+                login(username, password);
 
             }
         });
     }
 
-    private boolean login(String username, String password) {
-        Call<ResObj> call = apiService.login(username, password);
-        call.enqueue(new Callback<ResObj>() {
+    private void login(String username, String password) {
+        Call<String> call = apiService.login(username, password);
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call call, Response response) {
-                Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body().equals("Login successful")) {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), response.body(), Toast.LENGTH_SHORT).show();
+                }
             }
             @Override
             public void onFailure(Call call, Throwable t) {
-
+                System.out.println(t.getMessage());
             }
         });
-        return true;
     }
 }

@@ -10,5 +10,5 @@ public interface ApiService {
     Call<String> register(@Query("username") String username, @Query("password") String password);
 
     @POST("login")
-    Call<ResObj> login(@Query("user") String username, @Query("pass") String password);
+    Call<String> login(@Query("user") String username, @Query("pass") String password);
 }

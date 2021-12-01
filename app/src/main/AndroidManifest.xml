@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalFurnishings">
         <activity
+            android:name=".LandingActivity"
+            android:exported="true" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true" />
         <activity

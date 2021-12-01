@@ -2,6 +2,7 @@ package com.example.finalfurnishings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -59,13 +60,13 @@ public class RegisterActivity extends AppCompatActivity {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                System.out.println("help?");
                 Toast.makeText(getApplicationContext(), response.body(), Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(RegisterActivity.this, LandingActivity.class);
+//                startActivity(intent);
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 System.out.println(t.getMessage());
-                Toast.makeText(getApplicationContext(), "FAIL", Toast.LENGTH_SHORT).show();
             }
         });
     }
