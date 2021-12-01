@@ -55,16 +55,17 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void registerUser(String username, String password) {
         User user = new User(username, password);
-        Call<ResObj> call = apiService.register(username, password);
-        call.enqueue(new Callback<ResObj>() {
+        Call<String> call = apiService.register(username, password);
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call call, Response response) {
-                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.out.println("help?");
+                Toast.makeText(getApplicationContext(), response.body(), Toast.LENGTH_SHORT).show();
             }
-
             @Override
-            public void onFailure(Call call, Throwable t) {
-
+            public void onFailure(Call<String> call, Throwable t) {
+                System.out.println(t.getMessage());
+                Toast.makeText(getApplicationContext(), "FAIL", Toast.LENGTH_SHORT).show();
             }
         });
     }

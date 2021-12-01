@@ -7,5 +7,8 @@ import retrofit2.http.Query;
 
 public interface ApiService {
     @POST("users")
-    Call<ResObj> register(@Query("username") String username, @Query("password") String password);
+    Call<String> register(@Query("username") String username, @Query("password") String password);
+
+    @POST("login")
+    Call<ResObj> login(@Query("user") String username, @Query("pass") String password);
 }
