@@ -4,4 +4,8 @@
     <string name="loginButtonText">Login</string>
     <string name="usernameHintText">Enter your username</string>
     <string name="passwordHintText">Enter your password</string>
+    <string name="itemNameHint">Enter furnishing name</string>
+    <string name="itemDescHint">Enter description</string>
+    <string name="itemPriceHint">Enter price</string>
+    <string name="itemPostButtonText">Post Listing</string>
 </resources>
