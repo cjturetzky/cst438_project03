@@ -8,4 +8,7 @@
     <string name="itemDescHint">Enter description</string>
     <string name="itemPriceHint">Enter price</string>
     <string name="itemPostButtonText">Post Listing</string>
+    <string name="welcomeText">Welcome to Final Furnishings!</string>
+    <string name="profileButtonText">Edit Profile</string>
+    <string name="logout">logoutText</string>
 </resources>
