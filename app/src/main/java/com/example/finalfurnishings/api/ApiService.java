@@ -11,4 +11,7 @@ public interface ApiService {
 
     @POST("login")
     Call<String> login(@Query("user") String username, @Query("pass") String password);
+
+    @POST("items")
+    Call<String> postListing(@Query("item_name") String name, @Query("price") double price, @Query("description") String description);
 }
