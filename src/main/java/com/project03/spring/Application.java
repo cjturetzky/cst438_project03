@@ -109,5 +109,12 @@ public class Application extends SpringBootServletInitializer{
 		return "Error logging out: User not logged in";
 	}
 
+	@PostMapping("/items")
+	public String postListing(@CookieValue(value = "User_id") String cookie_id, @RequestParam(value="item_name") String itemName, @RequestParam(value="price") double price, @RequestParam(value="description") String description, @RequestParam(value="url") String url) {
+		String sql = "INSERT INTO listings (user_id, name, price, description, url) VALUES (?, ?, ?, ?, ?)";
+		template.update(sql, Integer.valueOf(cookie_id), itemName, price, description, url);
+		return "Listing successfully posted!";
+	}
+
 }
             
