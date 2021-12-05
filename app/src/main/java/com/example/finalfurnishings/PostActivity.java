@@ -60,11 +60,12 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Toast.makeText(getApplicationContext(), response.body(), Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(PostActivity.this, MainActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(PostActivity.this, MainActivity.class);
+                startActivity(intent);
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Something went wrong! Please try again.", Toast.LENGTH_SHORT).show();
                 System.out.println(t.getMessage());
             }
         });

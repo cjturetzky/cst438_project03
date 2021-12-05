@@ -10,5 +10,5 @@
     <string name="itemPostButtonText">Post Listing</string>
     <string name="welcomeText">Welcome to Final Furnishings!</string>
     <string name="profileButtonText">Edit Profile</string>
-    <string name="logout">logoutText</string>
+    <string name="logoutText">Logout</string>
 </resources>

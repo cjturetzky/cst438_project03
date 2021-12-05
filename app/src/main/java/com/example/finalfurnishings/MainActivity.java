@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Call<String> call, Response<String> response) {
                     Intent intent = new Intent(MainActivity.this, LandingActivity.class);
                     startActivity(intent);
+                    System.out.println(response.body());
                 }
 
                 @Override
