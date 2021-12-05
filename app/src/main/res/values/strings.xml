@@ -11,4 +11,6 @@
     <string name="welcomeText">Welcome to Final Furnishings!</string>
     <string name="profileButtonText">Edit Profile</string>
     <string name="logoutText">Logout</string>
+    <string name="view_listings">View Listings</string>
+    <string name="purchaseButton">Purchase</string>
 </resources>
