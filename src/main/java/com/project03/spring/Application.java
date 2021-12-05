@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 
 import javax.servlet.http.HttpServletResponse;
@@ -109,6 +112,13 @@ public class Application extends SpringBootServletInitializer{
 		return "Error logging out: User not logged in";
 	}
 
+	@GetMapping("/items")
+	public List<Map<String, Object>> getListings() {
+		String sql = "SELECT item_id, name, price, description FROM listings";
+		List<Map<String, Object>> rows = template.queryForList(sql);
+		return rows;
+	}
+	
 	@PostMapping("/items")
 	public String postListing(@CookieValue(value = "User_id", defaultValue = "1") String cookie_id, @RequestParam(value="item_name") String itemName, @RequestParam(value="price") double price, @RequestParam(value="description", defaultValue = "") String description, @RequestParam(value="url", defaultValue="") String url, HttpServletResponse response) {
 		String sql = "INSERT INTO listings (user_id, name, price, description, url) VALUES (?, ?, ?, ?, ?)";
