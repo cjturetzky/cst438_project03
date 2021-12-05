@@ -110,7 +110,7 @@ public class Application extends SpringBootServletInitializer{
 	}
 
 	@PostMapping("/items")
-	public String postListing(@CookieValue(value = "User_id") String cookie_id, @RequestParam(value="item_name") String itemName, @RequestParam(value="price") double price, @RequestParam(value="description") String description, @RequestParam(value="url") String url) {
+	public String postListing(@CookieValue(value = "User_id", defaultValue = "1") String cookie_id, @RequestParam(value="item_name") String itemName, @RequestParam(value="price") double price, @RequestParam(value="description", defaultValue = "") String description, @RequestParam(value="url", defaultValue="") String url, HttpServletResponse response) {
 		String sql = "INSERT INTO listings (user_id, name, price, description, url) VALUES (?, ?, ?, ?, ?)";
 		template.update(sql, Integer.valueOf(cookie_id), itemName, price, description, url);
 		return "Listing successfully posted!";
