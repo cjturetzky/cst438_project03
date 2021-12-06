@@ -35,13 +35,17 @@ public class Application extends SpringBootServletInitializer{
 	Display Furnishing (GET [url]/items?search={type, age})
 	 */
 	@GetMapping("/items")
-	public List<Map<String, Object>> listings(@RequestParam(value="search", defaultValue="all") String search){
+	public List<Map<String, Object>> listings(@RequestParam(value="search", defaultValue="all") String search, @RequestParam(value="list", defaultValue = "none") String list){
 		String sql;
-		if(search.equals("all")){
+		if(search.equals("all") && !list.equals("none")){
 			sql = "SELECT * FROM listings";
 		}
-		else{
+		else if(!list.equals("none")){
 			sql = "SELECT * FROM listings WHERE listings.name LIKE '%" + search + "%'";
+		}
+		else{
+			int userId = getUserId(list);
+			sql = "SELECT * FROM listings WHERE User_id = '" + userId + "'";
 		}
 		List<Map<String, Object>> rows;
 		try {
@@ -135,9 +139,15 @@ public class Application extends SpringBootServletInitializer{
 	}
 
 	public boolean checkAdmin(int userId){
-		String sql = "SELECT is_admin FROM useres WHERE user_id='" + userId + "'";
+		String sql = "SELECT is_admin FROM users WHERE user_id='" + userId + "'";
 		boolean rows = template.queryForObject(sql, Boolean.class);
 		return rows;
+	}
+
+	public int getUserId(String username){
+		String sql = "SELECT User_id FROM users WHERE username = '" + username + "'";
+		int User_id = template.queryForObject(sql, Integer.class);
+		return User_id;
 	}
 
 }
