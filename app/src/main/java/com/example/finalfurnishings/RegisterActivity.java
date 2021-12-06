@@ -2,6 +2,7 @@ package com.example.finalfurnishings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -55,16 +56,17 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void registerUser(String username, String password) {
         User user = new User(username, password);
-        Call<ResObj> call = apiService.register(username, password);
-        call.enqueue(new Callback<ResObj>() {
+        Call<String> call = apiService.register(username, password);
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call call, Response response) {
-                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<String> call, Response<String> response) {
+                Toast.makeText(getApplicationContext(), response.body(), Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(RegisterActivity.this, LandingActivity.class);
+//                startActivity(intent);
             }
-
             @Override
-            public void onFailure(Call call, Throwable t) {
-
+            public void onFailure(Call<String> call, Throwable t) {
+                System.out.println(t.getMessage());
             }
         });
     }

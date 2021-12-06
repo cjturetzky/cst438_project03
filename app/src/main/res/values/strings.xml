@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">FinalFurnishings</string>
     <string name="registerButtonText">Register</string>
+    <string name="loginButtonText">Login</string>
     <string name="usernameHintText">Enter your username</string>
     <string name="passwordHintText">Enter your password</string>
+    <string name="itemNameHint">Enter furnishing name</string>
+    <string name="itemDescHint">Enter description</string>
+    <string name="itemPriceHint">Enter price</string>
+    <string name="itemPostButtonText">Post Listing</string>
+    <string name="welcomeText">Welcome to Final Furnishings!</string>
+    <string name="profileButtonText">Edit Profile</string>
+    <string name="logoutText">Logout</string>
 </resources>
