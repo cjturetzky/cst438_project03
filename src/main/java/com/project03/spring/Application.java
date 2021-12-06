@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.Cookie;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
+import java.util.List;
+import java.util.Map;
 
 @SpringBootApplication
 @RestController
@@ -29,16 +30,27 @@ public class Application extends SpringBootServletInitializer{
 		return String.format("Hello %s!", name);
 	}
 
+	/*
+	List Claimed Furnishings (GET: [url]/items?list={username})
+	Display Furnishing (GET [url]/items?search={type, age})
+	 */
 	@GetMapping("/items")
-	public String listings(@RequestParam(value="search", defaultValue="all") String search){
+	public List<Map<String, Object>> listings(@RequestParam(value="search", defaultValue="all") String search){
 		String sql;
 		if(search.equals("all")){
-
+			sql = "SELECT * FROM listings";
 		}
 		else{
-
+			sql = "SELECT * FROM listings WHERE listings.name LIKE '%" + search + "%'";
 		}
-		return "Placeholder";
+		List<Map<String, Object>> rows;
+		try {
+			rows = template.queryForList(sql);
+		}
+		catch (EmptyResultDataAccessException e) {
+			rows = null;
+		}
+		return rows;
 	}
 
 	@GetMapping("/users")
