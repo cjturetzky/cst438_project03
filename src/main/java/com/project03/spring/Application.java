@@ -144,13 +144,10 @@ public class Application extends SpringBootServletInitializer{
 	}
 
 	@PostMapping("/logout")
-	public String logout(@CookieValue(value = "User_id", defaultValue = "0") String cookie_id, HttpServletResponse response){
-		if(!cookie_id.equals("0")){
-			Cookie cookie = new Cookie("User_id", "0");
-			response.addCookie(cookie);
-			return "Logout successful";
-		}
-		return "Error logging out: User not logged in";
+	public String logout(HttpServletResponse response){
+		Cookie cookie = new Cookie("User_id", "0");
+		response.addCookie(cookie);
+		return "Logout successful";
 	}
 
 	public boolean checkAdmin(int userId){
