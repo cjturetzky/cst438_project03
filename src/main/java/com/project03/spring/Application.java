@@ -57,6 +57,21 @@ public class Application extends SpringBootServletInitializer{
 		return rows;
 	}
 
+	@PostMapping("/items")
+	public String postItem(@RequestParam(value="name") String name, @RequestParam(value="description") String description,
+						   @RequestParam(value="url") String url, @RequestParam(value="price") double price,
+						   @RequestParam(value="item_id") int item_id, @RequestParam(value="User_id") int User_id){
+		String sql = "INSERT INTO listings (name, description, url, price, item_id, User_id)" +
+				"VALUES ('"+ name + "','" + description  + "','"+ url +"','" + price + "','" + item_id + "','" + User_id +"')";
+		try {
+			template.execute(sql);
+		}
+		catch (Exception e){
+			return "Insertion failed";
+		}
+		return "Insertion success";
+	}
+
 	@GetMapping("/users")
 	public String select(@RequestParam(value = "username", defaultValue = "Test") String username) {
 		String sql = "SELECT username FROM users WHERE username = ?";
