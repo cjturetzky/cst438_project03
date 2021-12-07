@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button userProfBtn;
         Button postButton;
+        Button browseButton;
         Button logoutButton;
         ApiService apiService;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             userProfBtn = findViewById(R.id.profileButton);
             postButton = findViewById(R.id.postListingButton);
             logoutButton = findViewById(R.id.logoutButton);
+            browseButton = findViewById(R.id.viewListingButton);
             apiService = ApiUtils.getApiService();
 
             postButton.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, UserProfile.class);
+                    startActivity(intent);
+                }
+            });
+
+            browseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, BrowseActivity.class);
                     startActivity(intent);
                 }
             });

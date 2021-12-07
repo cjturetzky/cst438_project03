@@ -39,6 +39,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
+        android:id="@+id/viewListingButton"
+        android:layout_width="143dp"
+        android:layout_height="57dp"
+        android:text="@string/view_listings"
+        app:layout_constraintStart_toStartOf="@+id/profileButton"
+        app:layout_constraintTop_toBottomOf="@+id/profileButton" />
+
+    <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
