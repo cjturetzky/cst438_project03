@@ -51,7 +51,7 @@ public class Application extends SpringBootServletInitializer{
 		try {
 			rows = template.queryForList(sql);
 		}
-		catch (EmptyResultDataAccessException e) {
+		catch (Exception e) {
 			rows = null;
 		}
 		return rows;
