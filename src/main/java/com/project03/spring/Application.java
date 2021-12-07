@@ -101,7 +101,7 @@ public class Application extends SpringBootServletInitializer{
 	}
 	
 	@DeleteMapping("/users")
-	public String deleteUser(@CookieValue("User_id") String cookie_id, @RequestParam(value = "userId") String userId) {
+	public String deleteUser(@CookieValue(name = "User_id", defaultValue = "000") String cookie_id, @RequestParam(value = "userId") String userId) {
 		// TODO: Ensure request has login attatched, delete user from database
 		String sql = "DELETE FROM users WHERE User_id='" + userId + "'";
 
