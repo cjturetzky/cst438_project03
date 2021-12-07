@@ -35,7 +35,7 @@ public class Application extends SpringBootServletInitializer{
 	Display Furnishing (GET [url]/items?search={type, age})
 	 */
 	@GetMapping("/items")
-	public String listings(@RequestParam(value="search", defaultValue="all") String search, @RequestParam(value="list", defaultValue = "none") String list){
+	public List<Map<String, Object>> listings(@RequestParam(value="search", defaultValue="all") String search, @RequestParam(value="list", defaultValue = "none") String list){
 		String sql;
 		if(search.equals("all") && list.equals("none")){
 			sql = "SELECT * FROM listings";
@@ -54,7 +54,7 @@ public class Application extends SpringBootServletInitializer{
 		catch (Exception e) {
 			rows = null;
 		}
-		return rows.toString();
+		return rows;
 	}
 
 	@PostMapping("/items")
