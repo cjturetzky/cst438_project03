@@ -144,8 +144,8 @@ public class Application extends SpringBootServletInitializer{
 	}
 
 	@PostMapping("/logout")
-	public String logout(@CookieValue(value = "User_id", defaultValue = "0") String cookie_id, @RequestParam(value="urlId", defaultValue = "None") String url_id, HttpServletResponse response){
-		if(cookie_id.equals(url_id)){
+	public String logout(@CookieValue(value = "User_id", defaultValue = "0") String cookie_id, HttpServletResponse response){
+		if(!cookie_id.equals("0")){
 			Cookie cookie = new Cookie("User_id", "0");
 			response.addCookie(cookie);
 			return "Logout successful";
