@@ -40,7 +40,7 @@ public class Application extends SpringBootServletInitializer{
 		if(search.equals("all") && list.equals("none")){
 			sql = "SELECT * FROM listings";
 		}
-		else if(!list.equals("none")){
+		else if(list.equals("none")){
 			sql = "SELECT * FROM listings WHERE listings.name LIKE '%" + search + "%'";
 		}
 		else{
