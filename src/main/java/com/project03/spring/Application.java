@@ -37,7 +37,7 @@ public class Application extends SpringBootServletInitializer{
 	@GetMapping("/items")
 	public String listings(@RequestParam(value="search", defaultValue="all") String search, @RequestParam(value="list", defaultValue = "none") String list){
 		String sql;
-		if(search.equals("all") && !list.equals("none")){
+		if(search.equals("all") && list.equals("none")){
 			sql = "SELECT * FROM listings";
 		}
 		else if(!list.equals("none")){
