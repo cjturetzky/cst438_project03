@@ -34,42 +34,56 @@ public class Application extends SpringBootServletInitializer{
 	List Claimed Furnishings (GET: [url]/items?list={username})
 	Display Furnishing (GET [url]/items?search={type, age})
 	 */
+	// @GetMapping("/items")
+	// public List<Map<String, Object>> listings(@RequestParam(value="search", defaultValue="all") String search, @RequestParam(value="list", defaultValue = "none") String list){
+	// 	String sql;
+	// 	if(search.equals("all") && list.equals("none")){
+	// 		sql = "SELECT * FROM listings";
+	// 	}
+	// 	else if(list.equals("none")){
+	// 		sql = "SELECT * FROM listings WHERE listings.name LIKE '%" + search + "%'";
+	// 	}
+	// 	else{
+	// 		int userId = getUserId(list);
+	// 		sql = "SELECT * FROM listings WHERE User_id = '" + userId + "'";
+	// 	}
+	// 	List<Map<String, Object>> rows;
+	// 	try {
+	// 		rows = template.queryForList(sql);
+	// 	}
+	// 	catch (Exception e) {
+	// 		rows = null;
+	// 	}
+	// 	return rows;
+	// }
+
+	// @PostMapping("/items")
+	// public String postItem(@RequestParam(value="name") String name, @RequestParam(value="description") String description,
+	// 					   @RequestParam(value="url") String url, @RequestParam(value="price") double price,
+	// 					   @RequestParam(value="item_id") int item_id, @RequestParam(value="User_id") int User_id){
+	// 	String sql = "INSERT INTO listings (name, description, url, price, item_id, User_id)" +
+	// 			"VALUES ('"+ name + "','" + description  + "','"+ url +"','" + price + "','" + item_id + "','" + User_id +"')";
+	// 	try {
+	// 		template.execute(sql);
+	// 	}
+	// 	catch (Exception e){
+	// 		return "Insertion failed";
+	// 	}
+	// 	return "Insertion success";
+	// }
+
 	@GetMapping("/items")
-	public List<Map<String, Object>> listings(@RequestParam(value="search", defaultValue="all") String search, @RequestParam(value="list", defaultValue = "none") String list){
-		String sql;
-		if(search.equals("all") && list.equals("none")){
-			sql = "SELECT * FROM listings";
-		}
-		else if(list.equals("none")){
-			sql = "SELECT * FROM listings WHERE listings.name LIKE '%" + search + "%'";
-		}
-		else{
-			int userId = getUserId(list);
-			sql = "SELECT * FROM listings WHERE User_id = '" + userId + "'";
-		}
-		List<Map<String, Object>> rows;
-		try {
-			rows = template.queryForList(sql);
-		}
-		catch (Exception e) {
-			rows = null;
-		}
+	public List<Map<String, Object>> getListings() {
+		String sql = "SELECT item_id, name, price, description FROM listings";
+		List<Map<String, Object>> rows = template.queryForList(sql);
 		return rows;
 	}
-
+	
 	@PostMapping("/items")
-	public String postItem(@RequestParam(value="name") String name, @RequestParam(value="description") String description,
-						   @RequestParam(value="url") String url, @RequestParam(value="price") double price,
-						   @RequestParam(value="item_id") int item_id, @RequestParam(value="User_id") int User_id){
-		String sql = "INSERT INTO listings (name, description, url, price, item_id, User_id)" +
-				"VALUES ('"+ name + "','" + description  + "','"+ url +"','" + price + "','" + item_id + "','" + User_id +"')";
-		try {
-			template.execute(sql);
-		}
-		catch (Exception e){
-			return "Insertion failed";
-		}
-		return "Insertion success";
+	public String postListing(@CookieValue(value = "User_id", defaultValue = "1") String cookie_id, @RequestParam(value="item_name") String itemName, @RequestParam(value="price") double price, @RequestParam(value="description", defaultValue = "") String description, @RequestParam(value="url", defaultValue="") String url, HttpServletResponse response) {
+		String sql = "INSERT INTO listings (user_id, name, price, description, url) VALUES (?, ?, ?, ?, ?)";
+		template.update(sql, Integer.valueOf(cookie_id), itemName, price, description, url);
+		return "Listing successfully posted!";
 	}
 
 	@GetMapping("/users")
